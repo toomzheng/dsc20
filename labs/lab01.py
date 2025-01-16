@@ -52,7 +52,7 @@ def counter_23_and_over(ages):
     >>> counter_23_and_over([40, 15, 22])
     1
     """
-# YOUR CODE GOES HERE #
+
     number = 0
     i=len(ages)
     mark = 0
@@ -81,7 +81,7 @@ def company_name_one(first_name, last_name):
     >>> company_name_one("THE", "best")
     'Company name is best E'
     """
-    # YOUR CODE GOES HERE #
+    
     companyName=last_name+" " +first_name[-1]
     return f"Company name is {companyName}"
 
@@ -108,7 +108,7 @@ def company_name_two(names):
     >>> company_name_two(names)
     'Y J B '
     """
-    # YOUR CODE GOES HERE #
+    
     #iterate through names
     companyName=""
     for name in names:
@@ -143,7 +143,7 @@ def new_slogan_concat(words, separator):
     >>> new_slogan_concat(words, ".")
     'Work.hard.nap.harder'
     """
-    # YOUR CODE GOES HERE #
+    
     # begin with an empty string for the slogan #
     slogan=""
     periods=len(words)-1
@@ -176,7 +176,7 @@ def new_slogan_join(words, separator):
     >>> new_slogan_join(words, ".")
     'Work.hard.nap.harder'
     """
-    # YOUR CODE GOES HERE #
+    
     return separator.join(words)
 
 # Question 6.1
@@ -198,7 +198,7 @@ def idea_simple_drawing(symbol, repeat):
     >>> idea_simple_drawing("", 2)
     ''
     """
-    # YOUR CODE GOES HERE #
+    
     return symbol*repeat
 
 # Question 6.2
@@ -222,7 +222,7 @@ def idea_longer_drawing(symbols, repeats):
     >>> idea_longer_drawing([], [])
     ''
     """
-    # YOUR CODE GOES HERE #
+    
     #marker for both lists
     i=0
     drawing=""
@@ -279,7 +279,7 @@ def average_rating_lists(ratings):
     >>> average_rating_lists([])
     -1
     """
-    # YOUR CODE GOES HERE #
+    
     total=0
     lst=[]
     if len(ratings) == 0:
@@ -319,7 +319,7 @@ def average_rating_lists_index(ratings):
     >>> average_rating_lists_index([])
     -1
     """
-    # YOUR CODE GOES HERE #
+    
     total=0
     lst=[]
     if len(ratings) == 0:
@@ -362,7 +362,7 @@ def average_rating_lists_names(ratings, names):
     >>> average_rating_lists_names([], [])
     ''
     """
-    # YOUR CODE GOES HERE #
+    
     total=0
     lst=[]
     if len(ratings) == 0:
@@ -404,7 +404,7 @@ def new_password(text, number, boolean):
     >>> new_password("paint", 21, True)
     'tniap42False'
     """
-    # YOUR CODE GOES HERE #
+    
     #ensure all inputs are valid
     if type(text) == str and type(number) == int and type(boolean) == bool: 
         #reverse string with [::-1] (start at the last character, end at the first character, increment back by -1 each time)
@@ -444,7 +444,7 @@ def colors_with_5(all_colors):
     >>> colors_with_5(all_colors)
     []
     """
-    # YOUR CODE GOES HERE #
+    
     five_colors=[]
     for color in all_colors:
         if len(color) == 5:
@@ -475,7 +475,7 @@ def total_for_painting(prices):
     >>> total_for_painting(prices)
     0
     """
-    # YOUR CODE GOES HERE #
+    
     listed_prices=prices.split()
     total = 0
     for price in listed_prices:

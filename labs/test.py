@@ -1,29 +1,35 @@
-def total_for_painting(prices):
+def password_to_lounge(names_dict):
     """
-    Calculates the total price of paintings given a string of 
-    integers.
+    Constructs secret language based on 3 rules:
+    (1) If code is even-length string, reverse name;
+    (2) If code is non-negative integer, add X `#` where X is name length;
+    (3) If code is negative integer, get first character of name.
     --
     Parameters:
-        prices: a string of postive integers
+        names_dict: dictionary of names as keys and code as values
     --
     Returns:
-        An integer representing the total of the integers
-    >>> prices = "10 20 30 3"
-    >>> total_for_painting(prices)
-    63
+        A password generated based on rules above.
 
-    >>> prices = "1 2 -3"
-    >>> total_for_painting(prices)
-    0
-
-    >>> prices = ""
-    >>> total_for_painting(prices)
-    0
+    >>> dict1 = {'Adrian': 'haha', 'Marina': 1, \
+'Langlois': 0, 'Walter': -2}
+    >>> password_to_lounge(dict1)
+    'nairdA##############W'
+    >>> dict2 = {'Ty': 'dsc', '': 20}
+    >>> password_to_lounge(dict2)
+    ''
+    >>> dict3 = {'M.L.': 5, 'DSC20': 'ab'}
+    >>> password_to_lounge(dict3)
+    '####02CSD'
     """
-    # YOUR CODE GOES HERE #
-    listed_prices=prices.split()
-    total = 0
-    for price in listed_prices:
-        price=int(price)
-        total += price
-    return total
+    password=""
+    for name in names_dict:
+        if type(names_dict[name]) == str and len(names_dict[name]) % 2 == 0:
+            password+=name[::-1]
+        elif type(names_dict[name]) == int:
+            if names_dict[name] >= 0:
+                password+="#" * len(name)
+            elif names_dict[name] < 0:
+                password+=name[0:1]
+
+    return password

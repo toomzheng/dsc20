@@ -3,19 +3,16 @@ DSC 20 Winter 2025 Homework 01
 Name: Tom Zheng
 PID: A18424137
 """
-
 # Question 1
 def login(fname, lname):
     
     """
-    Reverse fname and take every other character with [::2], this means revmoing
-    all odd indexed characters (since we're starting from index 0, index 1 is 
-    removed)
+    Reverse fname and take every other character with [::2], this means 
+    removing all odd indexed characters (since we're starting from index 0, 
+    index 1 is removed)
     
     Take every third character with [::3] (start with the first character and
     take every third one character after that)
-
-    We also check that all
 
     >>> login("Marina", "Langlois")
     'aiaLgi'
@@ -23,6 +20,8 @@ def login(fname, lname):
     ''
     >>> login("San", "Diego")
     'nSDg'
+
+    # Add your own doctests below
     >>> login("Tom", "")
     'mT'
     >>> login(42, "Zheng")
@@ -31,10 +30,10 @@ def login(fname, lname):
     'Zn'
     >>> login(True, False)
     'At least one entry is not a string'
-
-    # Add your own doctests below
+    
     """
-    # YOUR CODE GOES HERE #
+    # for this question and the next, I added these checks, though for future 
+    # questions they are assumed as their types are stated in the problems.
     # check that both parameters are strings
     if type(fname) == type(lname) == str:
         # reverse first name
@@ -54,10 +53,9 @@ def login(fname, lname):
 # Question 2
 def ages(age1, age2):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Check if either both ages are greater than 23, one is greater and one isn't
+    (print the one that isn't), or if both aren't (print the lower age)
+
     >>> ages(19, 21)
     21
     >>> ages(26, 21)
@@ -75,11 +73,10 @@ def ages(age1, age2):
     >>> ages('',1)
     'At least one entry is not an age!'
     """
-    # YOUR CODE GOES HERE #
     # check that both ages are positive
     # check that both age parameters are integers
     if type(age1) == type(age2) == int:
-        # check that both ages are positive (only do this after checking if int)
+        # check both ages are positive (only do this after checking if int)
         if age1 < 0 or age2 < 0 or (age1 < 0 and age2 < 0):
             return 'At least one entry is not a positive integer!'
         elif age1 >= 23 and age2 >= 23:
@@ -99,14 +96,9 @@ def renter(name1, name2, name3):
     is so that if multiple names have the same length, we always take the last
     possible name, which when reversed results in the first possible name.
     
-    Create a for-loop to iterate through the list of names and check the length 
-    of each name. If it is bigger, replace the longest length and keep note of 
+    Create a for-loop to iterate through the list of names and check the length
+    of each name. If it is bigger, replace the longest length and keep note of
     that name. Finally, return the longest name.
-
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
 
     >>> renter("K", "BB", "Joy")
     'Joy'
@@ -127,29 +119,25 @@ def renter(name1, name2, name3):
     >>> renter("Tom Zheng", "Matt Li", "Montre Ward")
     'Montre Ward'
     """
-    # YOUR CODE GOES HERE #
     # reverse the list so we can take the first instance of the longest name #
-    lst = [name3, name2, name1]
+    reversed_names = [name3, name2, name1]
     # initialize our "longest" variable to be -1 to account for empty strings
     longest = -1
     # the problem indicates string inputs, no need to worry about other types
-    for name in lst:
+    for name in reversed_names:
         if len(name) > longest:
             longest = len(name)
             longest_name = name
     return longest_name
 
+
 # Question 4.1
 def helper_distance(lst, x2, y2):
     """
-    The formula for the distance between two points in a Euclidean plane is
-    given by sqrt((x2-x1)^2+(y2-y1)^2). We let x1, y1 be the lst coordinates 
-    and x2, y2 be thhe given starting points. We write out the formula in python
-    and return its value.
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    We let x1, y1 be the lst coordinates and x2, y2 be the given starting 
+    points. The formula for the distance between two points in a Euclidean 
+    plane is given by sqrt((x2-x1)^2+(y2-y1)^2). We write out the formula in 
+    python and return its value.
     
     >>> helper_distance([0, 0], 3, 4)
     5.0
@@ -157,16 +145,15 @@ def helper_distance(lst, x2, y2):
     10.0
     >>> helper_distance([100, 100], 100.5, 100)
     0.5
+    
+    # Add your own doctests below
     >>> helper_distance([1, 1], 1, 1)
     0.0
     >>> helper_distance([2,4], 3, 2)
     2.236
     >>> helper_distance((0.2, 0.4), 0.7, 0.9)
     0.707
-
-    # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
     # we know we are given the proper datatypes and don't need to verify them
     distance = ((x2-lst[0])**2+(y2-lst[1])**2)**0.5
     # round to 2 decimal places to avoid errors
@@ -179,10 +166,6 @@ def lunch(lunch_places, office_x, office_y, threshold):
     Use the helper function from 4.1 to calculate the distance from each of the 
     coordinates given in the list. Then, compare if it is bigger than the
     threshold value.
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
 
     >>> lunch([[0, 0], [30.5, 20.7]], 3.2, 4, 6)
     [[0, 0]]
@@ -190,16 +173,15 @@ def lunch(lunch_places, office_x, office_y, threshold):
     [[-3, -4], [6, 7]]
     >>> lunch([[100, 100]], 100.5, 100, 0.2)
     []
+
+    # Add your own doctests below
     >>> lunch([[0,0], [0.25, 0.25], [10.224, 3.234]], 25, 25, 12)
     []
     >>> lunch([[0,0]], 0, 0, 0)
     [[0, 0]]
     >>> lunch([[12, 398], [120, 204], [128, 873], [128, 28]], 120, 294, 1000)
     [[12, 398], [120, 204], [128, 873], [128, 28]]
-
-    # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
     possible_spots = []
     for coord in lunch_places:
         distance = ((office_x - coord[0])**2 + (office_y - coord[1])**2)**0.5
@@ -211,10 +193,10 @@ def lunch(lunch_places, office_x, office_y, threshold):
 # Question 5
 def lunch_names(lunch_places, office_x, office_y, threshold, names):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Check that each restaurant is matched to a coordinate. Create an empty list
+    and calculate the distance from the office. If it is within the threshold,
+    add it to the list but instead of the coordinate the name of the 
+    restaurant. Otherwise, ignore it.
 
     >>> lunch_names([[0, 0], [30, 20], [5, 9]], 3.2, 4, 6, \
     ['place1', 'place2', 'place3'])
@@ -224,6 +206,8 @@ def lunch_names(lunch_places, office_x, office_y, threshold, names):
     ['place1', 'place2']
     >>> lunch_names([[100, 100]], 100.5, 100, 0.2, ['place1'])
     []
+    
+    # Add your own doctests below
     >>> lunch_names([[0, 0]], 0, 0, 0, [''])
     ['']
     >>> lunch_names([[1, 23], [24, 12], [64, 2]], 12, 21, 43, ['place1', \
@@ -232,10 +216,7 @@ def lunch_names(lunch_places, office_x, office_y, threshold, names):
     >>> lunch_names([[74, 32], [230, 28], [92, 76]], 12, 24, 182, ['place1', \
                     'place2', 'place3'])
     ['place1', 'place3']
-    
-    # Add your own doctests below
     """
-    # YOUR CODE GOES HERE #
     # check that every restaurant is matched to a coordinate
     if len(lunch_places) == len(names):
         possible_spots = []
@@ -245,8 +226,8 @@ def lunch_names(lunch_places, office_x, office_y, threshold, names):
             # check threshold requirement
             if distance <= threshold:
                 '''
-                this is technically a slight error if two restaurants were able 
-                to have the same coordinate (ex. they are stacked in a building)
+                technically a slight error if two restaurants were able to 
+                have the same coordinate (ex. they are stacked in a building)
                 i'm not sure if it's necessary, though in case I have attached
                 a code sample below which utilizes enumerate to solve this
                 '''
@@ -257,6 +238,7 @@ def lunch_names(lunch_places, office_x, office_y, threshold, names):
     else:
         return 'Not all restaurants are matched with a coordinate!'
 
+# example of how we may use enumerate to account for identical coordinates
 '''
 if len(lunch_places) == len(names):
     possible_spots = []
@@ -273,12 +255,8 @@ else:
 # Question 6
 def meeting_message(i_name, time, place, s_name):
     """
-    Set up a template function, and inseert the parameters into the places
-    necessary.
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Set up a template function, and insert the parameters into the places
+    necessary. Then, return it.
 
     >>> print(meeting_message("Penny", "3:15pm", "Cheesecake Factory", \
         "Sheldon"))
@@ -313,7 +291,6 @@ def meeting_message(i_name, time, place, s_name):
     <BLANKLINE>
     See you soon: 
     """
-    # YOUR CODE GOES HERE #
     template = f"Dear {i_name},\n" \
             + f"Please join our meeting at {time}, at the {place}.\n\n" \
             + f"See you soon: {s_name}"
@@ -324,10 +301,9 @@ def meeting_message(i_name, time, place, s_name):
 # Question 7
 def seat_number(lst):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Create an empty list. iterate through the given lst and if the name length 
+    is not in the empty list, append its length into the empty list. If it is,
+    append "taken" into the list. 
 
     >>> seat_number(["Marina", "Tom", "B"])
     [6, 3, 1]
@@ -345,7 +321,6 @@ def seat_number(lst):
     [0]
     """
 
-    # YOUR CODE GOES HERE #
     new_lst=[]
     for name in lst:
         if len(name) not in new_lst:
@@ -359,12 +334,8 @@ def seat_number(lst):
 def computers(choices):
     """
     Count the number of "DESKtop" in the list and number of "LAPtop" in the 
-    list. Compare them and if DESKtop is strictly greater than LAPtop count then
-    return True. Otherwise, return false
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    list. Compare them and if DESKtop is strictly greater than LAPtop count 
+    then return True. Otherwise, return false.
 
     >>> computers(["DESKtop", "LAPtop", "DESKtop"])
     True
@@ -381,23 +352,23 @@ def computers(choices):
     >>> computers(["DESKtop", "paper", "Desktop", "laptop"])
     True
     """
-    # YOUR CODE GOES HERE #
-    DESKtop_count = choices.count("DESKtop")
-    LAPtop_count = choices.count("LAPtop")
-    return DESKtop_count > LAPtop_count
+    desktop_count = choices.count("DESKtop")
+    laptop_count = choices.count("LAPtop")
+    return desktop_count > laptop_count
     # other method is below
 
 '''
-DESKtop_count = 0
-LAPtop_count = 0
+desktop_count = 0
+laptop_count = 0
 for item in choices:
     if item == "DESKtop":
-        DESKtop_count += 1
+        desktop_count += 1
     elif item == "LAPtop":
-        LAPtop_count +=1
-return DESKtop_count > LAPtop_count
+        laptop_count +=1
+return desktop_count > laptop_count
     
 '''
+
 
 # Question 9
 def age_average(lst):
@@ -406,10 +377,6 @@ def age_average(lst):
     all of them up and devide that by the length of the list to find the avg.
     If a number is negative, do not count it and subtract 1 from the length of 
     the list.
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
 
     >>> age_average(["20", "21", "22"])
     '21.0'
@@ -430,7 +397,6 @@ def age_average(lst):
     >>> age_average(["33"])
     '33.0'
     """
-    # YOUR CODE GOES HERE #
     total_ages = 0
     total_length = len(lst)
     #case for empty list
@@ -453,13 +419,9 @@ def age_average(lst):
 def supervision_teams(team, company_name):
     """
     Initialize two lists where one will hold the values of the first team
-    and the other the values of the second team. Iterate through team separating
-    the even indices and the odd indices. Then, add company_name in at the
-    respective indices for ecah list.
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    and the other the values of the second team. Iterate through team 
+    separating the even indices and the odd indices. Then, add company_name in
+    at the respective indices for ecah list.
 
     >>> supervision_teams(["p1", "p2", "p3"], "Marina")
     (['Marina', 'p1', 'p3'], ['p2', 'Marina'])
@@ -476,7 +438,6 @@ def supervision_teams(team, company_name):
     >>> supervision_teams([],'')
     ([''], [''])
     """
-    # YOUR CODE GOES HERE #
     team1 = []
     team2 = []
     i=0
