@@ -2,7 +2,8 @@
 DSC 20 Winter 2024 Homework 02
 Name: Tom Zheng
 PID: A18424137
-Source: TODO
+Source: Google, Geeks4Geeks, Python Documentation, Claude 3.5 Sonnet (for \
+    clarification and comprehension)
 """
 
 # Question 1
@@ -13,6 +14,14 @@ def name_mapping(given_names, preferred_names):
     the given names section is replaced by 'NO NAME PROVIDED'. Additionally,
     check if any of the strings in the lists are empty. If yes, demonstrate
     that in the tuple output.
+
+    Parameters:
+        given_names (list of str): The list of given names.
+        preferred_names (list of str): The list of preferred names.
+
+    Returns:
+        mapped_names (list of tuple): A list of tuples where each tuple 
+        contains a given name and a preferred name.
 
     >>> given_names = ['Amanda', 'Jeffrey', 'Richard']
     >>> preferred_names = ['Mandy', 'Jeff', 'Rick']
@@ -85,8 +94,17 @@ def name_mapping(given_names, preferred_names):
 # Question 2
 def valid_pairs(keys, values):
     """
-    Take in two lists of keys and values for a dictionary. Check if each item
-    in key is a possible dictionary key. If it is, add it to the list with the corresponding value. Otherwise specifiy that it is not valid. Output the valid pairs of keys and values in a list.
+    Take in two lists of keys and values for a dictionary. Validates if each 
+    item in key is a possible dictionary key. 
+
+    Parameters:
+        keys (list): A list of potential dictionary keys.
+        values (list): A list of corresponding values.
+
+    Returns:
+        key_value_pairs (list of tuple): A list of key-value pairs where keys 
+        are valid dictionary keys. If a key is invalid, it is replaced with the
+        tuple ('not valid',).
 
     >>> keys = ["fun", ["not so much"]]
     >>> values = [("learning",), 6]
@@ -107,17 +125,20 @@ def valid_pairs(keys, values):
     >>> keys = ["valid", 42, True, (1, 2), [3, 4]]
     >>> values = [10, "answer", False, "tuple", "list"]
     >>> valid_pairs(keys, values)
-    [('valid', 10), (42, 'answer'), (True, False), ((1, 2), 'tuple'), ('not valid',)]
+    [('valid', 10), (42, 'answer'), (True, False), ((1, 2), 'tuple'), \
+('not valid',)]
 
     >>> keys = ["key", None, {}, "another", (3.14,)]
     >>> values = ["value", "no value", "dict", "more", "pi"]
     >>> valid_pairs(keys, values)
-    [('key', 'value'), ('not valid',), ('not valid',), ('another', 'more'), ((3.14,), 'pi')]
+    [('key', 'value'), ('not valid',), ('not valid',), ('another', 'more'), \
+((3.14,), 'pi')]
 
     >>> keys = [(1, 2), "ok", 5.5, [], "done"]
     >>> values = ["tuple", "string", "float", "list", "end"]
     >>> valid_pairs(keys, values)
-    [((1, 2), 'tuple'), ('ok', 'string'), (5.5, 'float'), ('not valid',), ('done', 'end')]
+    [((1, 2), 'tuple'), ('ok', 'string'), (5.5, 'float'), ('not valid',), \
+('done', 'end')]
 
     """
     # initialize output list
@@ -143,14 +164,16 @@ def valid_pairs(keys, values):
 def dict_of_names(name_tuples):
     """
     Takes a list of tuples where each tuple contains a full name and a 
-    nickname, and returns a dictionary where the keys are full names, and the values are lists of associated nicknames.
+    nickname, and returns a dictionary where the keys are full names, and the 
+    values are lists of associated nicknames.
 
     Parameters:
     name_tuples (list): A list of tuples, where each tuple has two strings -
                         a full name and a nickname.
 
     Returns:
-    name_dict (dictionary): A dictionary where keys are full names, and values are lists of nicknames.
+    name_dict (dictionary): A dictionary where keys are full names, and values 
+    are lists of nicknames.
 
     >>> dict_of_names([('Richard', 'Rick'),
     ... ('Roxanne', 'Rose'), ('Roxanne', 'Ann'),
@@ -197,13 +220,18 @@ def dict_of_names(name_tuples):
 # Question 4.1
 def contractor_payment(suggestions):
     """
-    Take in a list of lists which each contain the payments for each job for each of the three contractors. Calculate the average of each contractor across all contracts. Return the result as a dictionary
+    Take in a list of lists which each contain the payments for each job for 
+    each of the three contractors. Calculate the average of each contractor 
+    across all contracts. Return the result as a dictionary
 
     Parameters:
-    suggestions (list of lists): A list where each inner list contains three values representing payments to each of the three contractors.
+    suggestions (list of lists): A list where each inner list contains three 
+    values representing payments to each of the three contractors.
 
     Returns:
-    averages_dict (dictionary): A dictionary where the keys are contractor numbers ('1', '2', '3'), and the values are their average payments rounded to two decimal places.
+    averages_dict (dictionary): A dictionary where the keys are contractor 
+    numbers ('1', '2', '3'), and the values are their average payments rounded
+    to two decimal places.
 
     >>> contractor_payment([[10, 20, 30], [0, 20, 10]])
     {'1': 5.0, '2': 20.0, '3': 20.0}
@@ -259,11 +287,14 @@ def new_pay(hours):
     the conditions for the hours they worked and decide on the result of the 
     pay.
 
-    Args:
-        hours (dict): A dictionary containing the hours worked by three contractors. Values are integers or floats
+    Parameters:
+        hours (dict): A dictionary containing the hours worked by three 
+        contractors. Values are integers or floats
 
     Returns:
-        bonus_pay or penalty (float): The calculated bonus pay or penalty. If any contractor has worked negative hours, the function returns -10 and sets the 'pay' key in the input dictionary to 'Penalty'.
+        bonus_pay or penalty (float): The calculated bonus pay or penalty. 
+        If any contractor has worked negative hours, the function returns -10 
+        and sets the 'pay' key in the input dictionary to 'Penalty'.
                Otherwise:
                - Bonus: If bonus_pay > 0
                - Penalty: If bonus_pay < 0
@@ -314,7 +345,8 @@ def new_pay(hours):
     hours_by_contractor2 = hours['2']
     hours_by_contractor3 = hours['3']
     bonus_pay = (0.01 * hours_by_contractor1 + 0.015 * hours_by_contractor2 
-                 + min(0.02 * abs(100 - hours_by_contractor3), 0.025 * hours_by_contractor3) - 5)
+                 + min(0.02 * abs(100 - hours_by_contractor3), 0.025 \
+                       * hours_by_contractor3) - 5)
     
     if bonus_pay < 0:
         result='Penalty'
@@ -333,7 +365,8 @@ def potential_ideas_for_business(items):
     through this for each supplier and for each ingredient. 
 
     Parameters: 
-        items (dict): A dictionary where keys are supplier names (strings) and values are lists of ingredients (strings) provided by that supplier.
+        items (dict): A dictionary where keys are supplier names (strings) and 
+        values are lists of ingredients (strings) provided by that supplier.
     
     Returns:
         list: An alphabetically sorted list of unique ingredients (strings) 
@@ -379,7 +412,8 @@ def potential_ideas_for_business(items):
 # Question 6.1
 def count_lines_1(filepath):
     """
-    Open the file from the filepath to be readable. Then, for each 
+    Open the file from the filepath to be readable. Then, reads line by line
+    and adds one to the count for every line.
 
     Parameters:
     filepath (str): The path to the file to be read.
@@ -401,20 +435,24 @@ def count_lines_1(filepath):
     0
 
     """
-    line_count=0
+    line_count = 0
     with open(filepath, 'r') as file:
         for line in file:
-            line_count +=1
+            line_count += 1
     return line_count
 
 
 # Question 6.2
 def count_lines_2(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Open the file in read mode, then read the file. After, split the lines into
+    a list and count the length of the list.
+
+    Parameters:
+    filepath (str): The path to the file to be read.
+
+    Returns:
+    line_count (int): The number of lines in the file.
 
     >>> count_lines_2('files/test1.txt')
     6
@@ -422,18 +460,36 @@ def count_lines_2(filepath):
     24
 
     # Add at least 3 doctests below here #
+
+    >>> count_lines_2('files/offices2.txt')
+    4
+    >>> count_lines_2('files/offices1.txt')
+    3
+    >>> count_lines_2('files/empty_trip.txt')
+    0
+    
+    The 3 tests above have files with empty lines at the end, so read and then
+    splitting will count all lines regardless of whether there is text or not.
     """
-    # YOUR CODE GOES HERE #
-    return
+    with open(filepath, 'r') as file:
+        text = file.read()
+        # better than splitting with \n but fails with trailing newlines. 
+        lines = text.splitlines()
+    return len(lines)
 
 
 # Question 6.3
 def count_lines_3(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Open the file in read mode, then read the file. Count the number of lines
+    in the file and return the lines into a list and return the length of the 
+    list.
+
+    Parameters:
+    filepath (str): The path to the file to be read.
+
+    Returns:
+    line_count (int): The number of lines in the file.
 
     >>> count_lines_3('files/test1.txt')
     6
@@ -441,19 +497,31 @@ def count_lines_3(filepath):
     24
 
     # Add at least 3 doctests below here #
+    >>> count_lines_3('files/offices2.txt')
+    4
+    >>> count_lines_3('files/offices1.txt')
+    3
+    >>> count_lines_3('files/empty_trip.txt')
+    0
     """
-    # YOUR CODE GOES HERE #
-    return
+    with open(filepath, 'r') as file:
+        lines = file.readlines()
+    return len(lines)
 
 
 # Question 7
 def collected_items(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Reads a file containing lines of comma-separated values, extracts the 
+    third column ("item"), and returns a list of these items. Skips empty 
+    lines and lines with fewer than three elements.
 
+    Parameters:
+        filepath (str): The path to the file to process.
+
+    Returns:
+        items (list): A list of strings representing the extracted items.
+    
     >>> collected_items('files/ings1.txt')
     ['ice-cream', 'boba tea', 'fish']
     >>> collected_items('files/ings2.txt')
@@ -462,18 +530,41 @@ def collected_items(filepath):
     []
 
     # Add at least 3 doctests below here #
+    >>> collected_items('files/single_line.txt')
+    ['novel']
+    >>> collected_items('files/extra_columns.txt')
+    ['cereal', 'soda']
+    >>> collected_items('files/malformed_lines.txt')
+    ['flowers', 'tools', 'vegetables']
     """
-    # YOUR CODE GOES HERE #
-    return
+    items=[]
+    position_of_item = 2
+    least_length = 3
+    with open(filepath, 'r') as file:
+        for line in file:
+            line=line.strip()
+            if line:
+                parts=line.split(',')
+                if len(parts)<least_length:
+                    continue
+                else:
+                    items.append(parts[position_of_item])
+
+    return items
 
 
 # Question 8
 def case_letters(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Count up each capital and lower letter in the filepath name. Write these
+    counts into the file itself.
+
+    Parameters:
+        filepath (str): The path to the file to process.
+
+    Returns:
+        the function itself doesn't return anything, however it writes in the
+        target filepath.
 
     >>> case_letters('files/AlErNaTiNg.txt')
     >>> with open('files/AlErNaTiNg.txt', 'r') as outfile1:
@@ -487,19 +578,57 @@ def case_letters(filepath):
     19
 
     # Add at least 3 doctests below here #
+    >>> case_letters('files/@(234@).txt')
+    >>> with open('files/@(234@).txt', 'r') as outfile3:
+    ...    print(outfile3.read().strip())
+    0
+    8
+
+    >>> case_letters('files/ALL_UPPERCASE.txt')
+    >>> with open('files/ALL_UPPERCASE.txt', 'r') as outfile4:
+    ...    print(outfile4.read().strip())
+    12
+    8
+
+    >>> case_letters('files/all_lowercase.txt')
+    >>> with open('files/all_lowercase.txt', 'r') as outfile5:
+    ...    print(outfile5.read().strip())
+    0
+    20
     """
-    # YOUR CODE GOES HERE #
-    return
+    
+    upper_count=0
+    lower_count=0
+    for letter in filepath:
+        if letter.isupper() and letter.isalpha():
+            upper_count+=1
+        elif letter.islower() and letter.isalpha():
+            lower_count+=1
+    
+    with open(filepath, 'w') as file:
+        file.write(f"{upper_count}\n{lower_count}")
+    return 
 
 
 # Question 9
 def map_office(filepath):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Maps office numbers to their corresponding floor descriptions
+    and writes these mappings to a file. Additionally, calculates
+    and returns the sum of all valid office numbers.
 
+    Mapping rules:
+    - Less than 1: "not a valid office number"
+    - Between 1 and 199 (inclusive): "ground floor"
+    - Between 200 and 299 (inclusive): "second floor"
+    - Above 300: "third floor and above"
+
+    Parameters:
+        filepath (str): Path to the input file containing office numbers.
+
+    Returns:
+        count (int): The sum of all valid office numbers.
+    
     >>> map_office('files/offices1.txt')
     259
     >>> with open('files/floors.txt', 'r') as f:
@@ -516,9 +645,47 @@ def map_office(filepath):
     not a valid office number
     second floor
     ground floor
-    """
-    # YOUR CODE GOES HERE #
-    return
 
+    >>> map_office('files/offices3.txt')
+    0
+    >>> with open('files/floors.txt', 'r') as f:
+    ...     print(f.read().strip())
+    not a valid office number
+    not a valid office number
+    not a valid office number
+
+    >>> map_office('files/offices4.txt')
+    100
+    >>> with open('files/floors.txt', 'r') as f:
+    ...     print(f.read().strip())
+    ground floor
+
+    >>> map_office('files/offices5.txt')
+    999
+    >>> with open('files/floors.txt', 'r') as f:
+    ...     print(f.read().strip())
+    third floor and above
+    ground floor
+    second floor
+    """
+    count = 0
+    with open(filepath, 'r') as file:
+        office_numbers = file.readlines()
+        with open('files/floors.txt', 'w') as f:
+            for line in office_numbers:
+                number = int(line.strip())
+                if number < 1:
+                    result = 'not a valid office number'
+                elif number <= 199:
+                    result = 'ground floor'
+                    count += number
+                elif number <= 299:
+                    result = 'second floor'
+                    count += number
+                else:   
+                    result = 'third floor and above'
+                    count += number
+                f.write(f'{result}\n')
+    return count
 
 

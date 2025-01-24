@@ -6,4 +6,3 @@ if type(a) is int:
 
 if type(b) is str:
     print("no change")
-    

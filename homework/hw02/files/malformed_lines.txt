@@ -1,0 +1,4 @@
+alice,garden,flowers,2
+invalid_line_without_commas
+bob,shop,tools
+clara,market,vegetables,5

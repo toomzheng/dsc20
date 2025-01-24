@@ -1,41 +1,39 @@
-def supervision_teams(team, company_name):
+def operate_nums(lst):
     """
-    Initialize two lists where one will hold the values of the first team
-    and the other the values of the second team. Iterate through team separating
-    the even indices and the odd indices. Then, add company_name in at the
-    respective indices for ecah list.
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Takes in a list of integers and returns a new list of integers. The new
+    list will have doubled all odd integers and tripled all even integers.
 
-    >>> supervision_teams(["p1", "p2", "p3"], "Marina")
-    (['Marina', 'p1', 'p3'], ['p2', 'Marina'])
-    >>> supervision_teams(["p1"], "Marina")
-    (['Marina', 'p1'], ['Marina'])
-    >>> supervision_teams(["p1", "p2", "p3", "p4", "p5", "p6"], "Marina")
-    (['Marina', 'p1', 'p3', 'p5'], ['p2', 'p4', 'p6', 'Marina'])
-
-    # Add your own doctests below
-    >>> supervision_teams([""], "")
-    (['', ''], [''])
-    >>> supervision_teams(["p1", ""], "Tom")
-    (['Tom', 'p1'], ['', 'Tom'])
-    >>> supervision_teams([],'')
-    ([''], [''])
-    """
-    # YOUR CODE GOES HERE #
-    team1 = []
-    team2 = []
-    i=0
-    for name in team:
-        if i % 2 == 0 or i == 0:
-            team1.append(name)
-            i+=1
-        else: 
-            team2.append(name)
-            i+=1
+    Args:
+        lst (list): A list of integers
     
-    team1.insert(0, company_name)
-    team2.append(company_name)
-    return (team1, team2)
+    Returns:
+        list: A list where odd integers are doubled and even integers are 
+        tripled
+
+    >>> operate_nums([1, 2, 3, 's'])
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    >>> operate_nums([2, 3.1, -2, 0, 5])
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    >>> operate_nums([2, 3, -2, 0, 5])
+    [6, 6, -6, 0, 10]
+
+    >>> operate_nums([])
+    []
+
+    >>> operate_nums([1, -3, -4, 7])
+    [2, -6, -12, 14]
+
+    >>> operate_nums(1)
+    Traceback (most recent call last):
+    ...
+    AssertionError
+    """
+    # check if the list is a list
+    assert isinstance(lst, list)
+    # check that all of the numbers in the list are integers
+    assert all([isinstance(num, int) for num in lst])
+    return [num * 2 if num % 2 != 0 else num * 3 for num in lst]

@@ -1,35 +1,37 @@
-def password_to_lounge(names_dict):
+def keep_a_secret(filename):
     """
-    Constructs secret language based on 3 rules:
-    (1) If code is even-length string, reverse name;
-    (2) If code is non-negative integer, add X `#` where X is name length;
-    (3) If code is negative integer, get first character of name.
-    --
-    Parameters:
-        names_dict: dictionary of names as keys and code as values
-    --
-    Returns:
-        A password generated based on rules above.
+    Decodes message from the given input file.
 
-    >>> dict1 = {'Adrian': 'haha', 'Marina': 1, \
-'Langlois': 0, 'Walter': -2}
-    >>> password_to_lounge(dict1)
-    'nairdA##############W'
-    >>> dict2 = {'Ty': 'dsc', '': 20}
-    >>> password_to_lounge(dict2)
-    ''
-    >>> dict3 = {'M.L.': 5, 'DSC20': 'ab'}
-    >>> password_to_lounge(dict3)
-    '####02CSD'
+    >>> print(keep_a_secret('files/encoded_1.txt').strip())
+    jack reacher
+    23@4 b#l31oo%m@^ way
+    FSD@si%m3~on fis#he%r
+    121 rockefeller avenue
+    32'1 fulleH##r "dr^i~v@e
+    @@4:)5#0p1m#
+    7/29 06.45
+    >>> print(keep_a_secret('files/encoded_2.txt').strip())
+    kurt hendricks
+    simon 1p@egg
+    @kremlin office
+    b%i>%g@ be>n @lond#o&&n
+    moscow
+    @reykj@av>>ik:/
+    12:50 23/11
+    >>> print(keep_a_secret('files/encoded_3.txt').strip())
+    <BLANKLINE>
+    >>> keep_a_secret('files/encoded_4.txt').strip()
+    'kurt hendricks\\nsimon 1p@egg'
     """
-    password=""
-    for name in names_dict:
-        if type(names_dict[name]) == str and len(names_dict[name]) % 2 == 0:
-            password+=name[::-1]
-        elif type(names_dict[name]) == int:
-            if names_dict[name] >= 0:
-                password+="#" * len(name)
-            elif names_dict[name] < 0:
-                password+=name[0:1]
-
-    return password
+    # YOUR CODE GOES HERE #
+    decoded_messages = []
+    with open(filename, 'r') as file:
+        for line in file: 
+            stripped_line = line.strip()
+            decoded_line = (stripped_line
+                            .replace('!', '')
+                            .replace('?', '')
+                            .replace(';', '')
+                            .replace('$', ''))
+            decoded_messages.append(decoded_line)
+    return '\n'.join(decoded_messages) + '\n'
