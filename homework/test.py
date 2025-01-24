@@ -1,39 +1,40 @@
-def operate_nums(lst):
+def process_dict(input_dict):
     """
-    Takes in a list of integers and returns a new list of integers. The new
-    list will have doubled all odd integers and tripled all even integers.
+    Takes in a dictionary where keys are tuples and values are lists of strings
+    Returns a list of the sum of the keys and strings for each key.
 
     Args:
-        lst (list): A list of integers
+        input_dict (dict): A dictionary with keys are tuples and values are 
+        lists.
     
     Returns:
-        list: A list where odd integers are doubled and even integers are 
-        tripled
+        list: A list of ints where each integer is the sum for the length
+        of the tuple (key) and the length of each of the strings in the 
+        list (values).
 
-    >>> operate_nums([1, 2, 3, 's'])
+    
+    >>> process_dict({1: ['a', 'b', 'c'], (1, 2): ['a']})
     Traceback (most recent call last):
     ...
     AssertionError
-    >>> operate_nums([2, 3.1, -2, 0, 5])
+    >>> process_dict({(1, 2): ['a', 0], (2, ): ['b']})
     Traceback (most recent call last):
     ...
     AssertionError
-    >>> operate_nums([2, 3, -2, 0, 5])
-    [6, 6, -6, 0, 10]
-
-    >>> operate_nums([])
-    []
-
-    >>> operate_nums([1, -3, -4, 7])
-    [2, -6, -12, 14]
-
-    >>> operate_nums(1)
-    Traceback (most recent call last):
-    ...
-    AssertionError
+    >>> process_dict({(1, 2): ['dsc', 'dsc20', 'dsc30'], (2,): ['b']})
+    [15, 2]
     """
-    # check if the list is a list
-    assert isinstance(lst, list)
-    # check that all of the numbers in the list are integers
-    assert all([isinstance(num, int) for num in lst])
-    return [num * 2 if num % 2 != 0 else num * 3 for num in lst]
+    assert isinstance(input_dict, dict)
+    # check if all the keys are tuples
+    assert all([isinstance(key, tuple) for key in input_dict])
+    # check if all the values are lists
+    assert all([isinstance(input_dict[key], list) for key in input_dict]) 
+    # check if all the items in the lists are strings
+    assert all([isinstance(input_dict[key][i], str) for key in input_dict \
+                for i in range(len(input_dict[key]))])
+    
+    # add the length of the key and
+    # the sum of the lengths of strings in the list for the key
+    # for each key in the dictionary
+    return [len(key) + sum(len(string) for string in input_dict[key]) \
+            for key in input_dict]
