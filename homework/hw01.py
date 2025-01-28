@@ -391,28 +391,24 @@ def age_average(lst):
     >>> age_average(["0", "0", "0"])
     '0.0'
     >>> age_average(["12", "43", "21"])
-    '25.33'
+    '25.3'
     >>> age_average(["-12", "-999"])
     '0.0'
     >>> age_average(["33"])
     '33.0'
     """
     total_ages = 0
-    total_length = len(lst)
-    #case for empty list
-    if len(lst) == 0:
-        return "0.0"
+    total_length = 0
     #case for nonempty list
     for age in lst:
         if int(age) > 0:
             total_ages += int(age)
-        else:
-            total_length -= 1
-    # case for if all numbers are negative
+            total_length += 1
+    # case empty list or for if all numbers are negative
     if total_length == 0:
         return "0.0"
-    # round to two decimal places to avoid floating point errors
-    return str(round(total_ages/total_length, 2))
+    # round to one decimal place
+    return str(round(total_ages/total_length, 1))
 
 
 # Question 10

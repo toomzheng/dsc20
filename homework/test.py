@@ -1,40 +1,38 @@
-def process_dict(input_dict):
+def age_average(lst):
     """
-    Takes in a dictionary where keys are tuples and values are lists of strings
-    Returns a list of the sum of the keys and strings for each key.
+    Iterate over every string in the list and convert it to an integer. Add
+    all of them up and devide that by the length of the list to find the avg.
+    If a number is negative, do not count it and subtract 1 from the length of 
+    the list.
 
-    Args:
-        input_dict (dict): A dictionary with keys are tuples and values are 
-        lists.
-    
-    Returns:
-        list: A list of ints where each integer is the sum for the length
-        of the tuple (key) and the length of each of the strings in the 
-        list (values).
+    >>> age_average(["20", "21", "22"])
+    '21.0'
+    >>> age_average(["50", "25", "30"])
+    '35.0'
+    >>> age_average(["40", "-999", "45"])
+    '42.5'
+    >>> age_average([])
+    '0.0'
 
-    
-    >>> process_dict({1: ['a', 'b', 'c'], (1, 2): ['a']})
-    Traceback (most recent call last):
-    ...
-    AssertionError
-    >>> process_dict({(1, 2): ['a', 0], (2, ): ['b']})
-    Traceback (most recent call last):
-    ...
-    AssertionError
-    >>> process_dict({(1, 2): ['dsc', 'dsc20', 'dsc30'], (2,): ['b']})
-    [15, 2]
+    # Add your own doctests below
+    >>> age_average(["0", "0", "0"])
+    '0.0'
+    >>> age_average(["12", "43", "21"])
+    '25.3'
+    >>> age_average(["-12", "-999"])
+    '0.0'
+    >>> age_average(["33"])
+    '33.0'
     """
-    assert isinstance(input_dict, dict)
-    # check if all the keys are tuples
-    assert all([isinstance(key, tuple) for key in input_dict])
-    # check if all the values are lists
-    assert all([isinstance(input_dict[key], list) for key in input_dict]) 
-    # check if all the items in the lists are strings
-    assert all([isinstance(input_dict[key][i], str) for key in input_dict \
-                for i in range(len(input_dict[key]))])
-    
-    # add the length of the key and
-    # the sum of the lengths of strings in the list for the key
-    # for each key in the dictionary
-    return [len(key) + sum(len(string) for string in input_dict[key]) \
-            for key in input_dict]
+    total_ages = 0
+    total_length = 0
+    #case for nonempty list
+    for age in lst:
+        if int(age) > 0:
+            total_ages += int(age)
+            total_length += 1
+    # case empty list or for if all numbers are negative
+    if total_length == 0:
+        return "0.0"
+    # round to one decimal place
+    return str(round(total_ages/total_length, 1))
