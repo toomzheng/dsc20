@@ -161,7 +161,7 @@ def forming_teams_2(teams, limit):
     >>> forming_teams_2({}, 3)
     []
     """
-    return list(filter(lambda x: teams[x] >= limit, teams))
+    return list(filter(lambda x: len(teams[x]) >= limit, teams))
 
 
 # Question 3.1
@@ -191,8 +191,10 @@ def next_round_1(teams, threshold):
     >>> next_round_1({}, 3)
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    # map the points * 25 onto all valid team scores, and make it a tuple.
+    return list(map(lambda x: (x, teams[x] * 25), \
+                    # filter through all valid teams
+                    list(filter(lambda x: teams[x] >= threshold, teams))))
 
 
 # Question 3.2
@@ -221,8 +223,14 @@ def next_round_2(teams, threshold):
     >>> next_round_2({}, 3)
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    # count out the number of valid scores for each one 
+    return list(
+        map(
+            lambda x: (x, len(list(filter\
+                            # filter out for the valid scores for each team
+                            (lambda x: x >=threshold, teams[x])))), teams
+            )
+        )
 
 
 # Question 3.3
@@ -249,5 +257,8 @@ def next_round_3(teams, results):
     >>> next_round_3([], [])
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    # zip will turn teams and results into matching tuples
+    # see which results are valid
+    return list(filter(lambda x: x[1] in \
+                       ['qualified', 'winner', 'advanced'], \
+                        zip(teams, results)))
