@@ -1,0 +1,3 @@
+Name, City, DOB
+ Olivia  ,  Boston  ,  1998-09-17  
+ Mason  ,  Newark  ,  1992-02-03

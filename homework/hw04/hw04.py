@@ -1,17 +1,23 @@
 """
 DSC 20 Winter 2025 Homework 04
-Name: TODO
-PID: TODO
+Name: Tom Zheng
+PID: A18424137
 Source: TODO
 """
 
 # Question 1
 def place_of_birth(file_in):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Reads a file containing players' names, citise, and dates of birth. 
+    Creates a dictionary and cleans up extra spaces, where the keys are 
+    city names, and the values are lists of people born there.
+
+    Args:
+        file_in (str): Path to .txt file with player data
+
+    Returns:
+        dct (dict): A dictionary with keys a city names and values as lists
+        of people born there.
 
     >>> place_of_birth('files/info_1.txt')
     {'Chicago': ['Rob'], 'New York': ['Ella'], 'New York.': ['Mary']}
@@ -22,9 +28,25 @@ def place_of_birth(file_in):
     {}
 
     # Add at least 3 doctests below here #
+    >>> place_of_birth('files/mixed_case.txt')
+    {'Los Angeles': ['Jake'], 'los angeles': ['Emma']}
+    >>> place_of_birth('files/trailing_spaces.txt')
+    {'Boston': ['Olivia'], 'Newark': ['Mason']}
+    >>> place_of_birth('files/extra_whitespace.txt')
+    {'Chicago': ['Alice'], 'San Francisco': ['Bob']}
     """
-    # YOUR CODE GOES HERE #
-    return
+    dct = {}
+    with open(file_in, 'r') as file:
+        next(file) # skip the first line
+        for line in file:
+            # strip the whitespace from the ends of each word in the list
+            line_list = [word.strip() for word in line.split(',')]
+            if line_list[1] not in dct:
+                dct[line_list[1]] = [line_list[0]]
+            else:
+                dct[line_list[1]].append(line_list[0])
+    return dct
+
 
 
 # Question 2
