@@ -1,7 +1,7 @@
 """
 DSC 20 Winter 2025 Lab 04
-Name: TODO
-PID: TODO
+Name: Tom Zheng
+PID: A18424137
 """
 
 # Question 1.1
@@ -24,8 +24,8 @@ def problem_1(int_lst, mult_factor):
     >>> problem_1([], -10)
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    # map the lambda function onto every integer in int_lst
+    return list(map(lambda x: x*mult_factor, int_lst))
 
 
 # Question 1.2
@@ -50,8 +50,8 @@ def problem_2(int_lst, factor):
     >>> problem_2([1, 3, 4, 6, 5], 2)
     [4, 6]
     """
-    # YOUR CODE GOES HERE #
-    return
+    # filter through every value in the list, and return it if it is a "factor"
+    return list(filter(lambda x:x % factor == 0, int_lst))
 
 
 # Question 1.3
@@ -76,8 +76,7 @@ def problem_3(int_lst, factor):
     >>> problem_3([1, 3, 4, 6, 5], 2)
     [None, None, 4, 6, None]
     """
-    # YOUR CODE GOES HERE #
-    return
+    return list(map(lambda x: x if x % factor == 0 else None, int_lst))
 
 
 # Question 1.4
@@ -100,8 +99,10 @@ def problem_4(lst):
     >>> problem_4([])
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    # can't use None because 0 is None
+    # filter(None, lst) means that 0 is not checked explicitly
+    # None is falsey, and 0 is falsey as well. 
+    return list(filter(lambda x: x != None, lst))
 
 
 # Question 2.1
@@ -130,8 +131,9 @@ def forming_teams_1(teams, limit):
     >>> forming_teams_1({}, 3)
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    # filter for teams where the size is greater than 3
+    return list(map(lambda x: x if len(teams[x])>=limit \
+                    else 'Need more players', teams))
 
 
 # Question 2.2
@@ -159,8 +161,7 @@ def forming_teams_2(teams, limit):
     >>> forming_teams_2({}, 3)
     []
     """
-    # YOUR CODE GOES HERE #
-    return
+    return list(filter(lambda x: teams[x] >= limit, teams))
 
 
 # Question 3.1
