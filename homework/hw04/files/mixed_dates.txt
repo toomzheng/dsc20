@@ -1,0 +1,4 @@
+Name, City, DOB
+Jake, New York, 06/15/2000
+Emma, Los Angeles, 12/30/1989
+Noah, Chicago, 05/20/1985

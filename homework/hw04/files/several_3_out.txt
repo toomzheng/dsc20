@@ -1,0 +1,7 @@
+name,city,DOB
+Jake,New York,Jun 15 2000
+Emma,Los Angeles,Dec 30 1989
+Noah,Chicago,May 20 1985
+Liam,Boston,Jan 01 2024
+Sophia,Miami,Jul 07 2025
+Oliver,Seattle,May 25 0

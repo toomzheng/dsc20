@@ -1,28 +1,31 @@
-def next_round_3(teams, results):
+def hop_many(lst, func, iterations):
     """
-    Finds the teams that advance: ('qualified', 'advanced', 'winner'), returns
-    a list of tuples with team name and result
-    ---
+    Applies function to each element in list specified number of times
+    --
     Parameters:
-        teams: a list of strings with team names
-        results: a list of strings with the result for each team
-    ---
+        lst: list of numbers
+        func: a function to be applied
+        iterations: number of times to perform operation
+    --
     Returns:
-        a list of tuples for only the teams that have advanced to the next
-        round; in each tuple, the first element should be the team's name,
-        and the second element should be their result, both as strings
+        List of transformed numbers
 
-    >>> next_round_3(['team1', 'team2', 'team3'], ['qualified', 'out', 'winner'])
-    [('team1', 'qualified'), ('team3', 'winner')]
-    >>> next_round_3(['team1', 'team2'], ['eliminated', 'out'])
-    []
-    >>> next_round_3(['team1', 'team2'], ['eliminated', 'advanced'])
-    [('team2', 'advanced')]
-    >>> next_round_3([], [])
-    []
+    >>> lst = [1,2,3]
+    >>> hop_many(lst, squared, 2)
+    [1, 16, 81]
+    >>> hop_many(lst, squared, 3)
+    [1, 256, 6561]
+    >>> hop_many(lst, identity, 100)
+    [1, 2, 3]
+    >>> hop_many(lst, lambda x: x - 1, 4)
+    [-3, -2, -1]
     """
-    # zip will turn teams and results into matching tuples
-    # see which results are valid
-    return list(filter(lambda x: x[1] in \
-                       ['qualified', 'winner', 'advanced'], \
-                        zip(teams, results)))
+    # set up a helper function that takes in a vector and # of iterations
+    def apply_iterations(element, n):
+        # do this for n amount of times
+        for _ in range(n):
+            # set the new vector to be the vector with function applied
+            element = func(element)
+        return element
+    
+    return [apply_iterations(element, iterations) for element in lst]

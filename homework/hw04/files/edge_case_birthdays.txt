@@ -1,0 +1,4 @@
+Name, City, DOB
+Liam, Boston, 01/01/2024
+Sophia, Miami, 07/07/2025
+Oliver, Seattle, 05/25/0
