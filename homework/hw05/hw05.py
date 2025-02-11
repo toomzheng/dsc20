@@ -2,7 +2,7 @@
 DSC 20 Winter 2025 Homework 05
 Name: Tom Zheng
 PID: A18424137
-Source: TODO
+Source: Python Docs and Geeks4Geeks
 """
 
 # Question 1
@@ -158,10 +158,13 @@ at {split_line[company_index]}, \
 
 def forge_votes(vote_file):
     """
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Takes in a file containing votes and forges the minimal number of votes
+    so that YES votes (1's) form a majority strictly above 50%.
+
+    Args:
+        vote_file (str): path to the file to be forged
+    
+    Return
 
     >>> forge_votes("files/vote1.txt")
     >>> with open("files/forged.txt", "r") as out:
@@ -187,13 +190,53 @@ def forge_votes(vote_file):
     Andy,1
 
     # Add at least 3 doctests below here #
-    """
-    # YOUR CODE GOES HERE #
-    
 
+    >>> forge_votes("files/empty_votes.txt")
+    >>> with open("files/forged.txt", "r") as out:
+    ...    print(out.read().strip())
+    <BLANKLINE>
+
+    >>> forge_votes("files/solo.txt")
+    >>> with open("files/forged.txt", "r") as out:
+    ...     print(out.read().strip())
+    Solo,1
+
+    >>> forge_votes("files/four_votes.txt")
+    >>> with open("files/forged.txt", "r") as out:
+    ...     print(out.read().strip())
+    A,1
+    B,1
+    C,1
+    D,0
+    """
+
+    vote_index = 1
+    check_even = 2
+    with open(vote_file, 'r') as file:
+        
+        # turn the entire file into a long list
+        lines = [line.strip() for line in file.readlines()]
+        
+        # count the number of 'yes' within the list
+        yes_count = sum([1 for line in lines \
+                         if int(line.strip().split(',')[vote_index]) == 1])
+        
+        # the total number of votes must be the total number of lines
+        total_votes = len(lines)
+
+        # calculate the number of needed votes to create a majority
+        # add one as total_votes//check_even is floored
+        needed = total_votes//check_even + 1 - yes_count
+
+        content = '\n'.join(lines)
+        # replace the content's 0's and 1's needed times if needed > 0
+        forged_content = content.replace(',0', ',1', needed) if needed > 0 \
+            else content
+
+        with open("files/forged.txt", "w") as out:
+            out.write(forged_content)
 
 # Question 4
-
 def complexity_tf():
     """
     Write your answers to time complexity True/False questions in this
@@ -208,4 +251,4 @@ def complexity_tf():
     True
     """
     # REPLACE ... WITH YOUR ANSWERS (True/False) #
-    return [..., ..., ..., ..., ..., ..., ..., ..., ..., ...]
+    return [True, True, False, True, False, True, False, True, False, False]
