@@ -1,0 +1,2 @@
+NVIDIA,Jensen,jensen@nvidia.com,s
+Apple,Steve,steve@apple.com,s

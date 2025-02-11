@@ -40,11 +40,13 @@ def operate_nums(lst):
     ...
     AssertionError
     """
+    double = 2
+    triple = 3
     # check if the list is a list
     assert isinstance(lst, list)
     # check that all of the numbers in the list are integers
     assert all([isinstance(num, int) for num in lst])
-    return [num * 2 if num % 2 != 0 else num * 3 for num in lst]
+    return [num * double if num % 2 != 0 else num * triple for num in lst]
 
 
 # Question 1.2
@@ -292,7 +294,8 @@ def change_input_even_more(strange_list):
             else char if not char.isdigit() else ''
             for char in item) \
                 # now, at the end of the string do the digits
-                + ''.join(str(int(char) * 2) for char in item if char.isdigit())
+                + ''.join(str(int(char) * 2) for char in item \
+                          if char.isdigit())
                 for item in strange_list
                 ]
 
@@ -403,12 +406,19 @@ def cheapest_average_gas(gas_stations, mileage):
     'Arco'
     """
     # to be less messy, we get both key and value from dictionary
-    # get the average by taking the sum of the prices in the reachable stations for each station
-    return min([(sum(price for distance, price in gas_stations[station] if distance <= mileage)
-                 # add up the number of that particular station within reach and divide for avg
-                /sum(1 for distance, price in gas_stations[station] if distance <= mileage), station)
-                # check that there is at least one station that is reachable to avoid DivisionByZero
-                for station in gas_stations if any(distance <= mileage for distance, price in gas_stations[station])])[1]
+    # get the average by taking the sum of the prices in the reachable 
+    # stations for each station
+    return min([(sum(price for distance, price in gas_stations[station] \
+                     if distance <= mileage)
+                 # add up the number of that particular station within reach 
+                 # and divide for avg
+                /sum(1 for distance, price in gas_stations[station] \
+                     if distance <= mileage), station)
+                # check that there is at least one station that is 
+                # reachable to avoid DivisionByZero
+                for station in gas_stations \
+                    if any(distance <= mileage \
+                           for distance, price in gas_stations[station])])[1]
 
 
 # Question 6

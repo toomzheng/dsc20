@@ -1,0 +1,3 @@
+Apple,Steve,steve@apple.com,s
+NVIDIA,,jensen@nvidia.com,w
+Amazon,Jeff,,s
