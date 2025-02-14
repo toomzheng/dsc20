@@ -1,17 +1,35 @@
 """
 DSC 20 Winter 2025 Homework 06
-Name: TODO
-PID: TODO
+Name: Tom  
+PID: Zheng
 Source: TODO
 """
 
 #Question 1
 def randomize(*args):
     """ 
-    ##############################################################
-    # TODO: Replace this block of comments with your own         #
-    # method description and add at least 3 more doctests below. #
-    ##############################################################
+    Organizes a series of arguments into a dictionary with keys being the type
+    of the argument and values determined by specific transformation rules
+    to each type. 
+
+    If the type is a:
+        string: keep the characters at the even indices of the string, 
+        i.e. (0th, 2nd, 4th, 6th index and so on…)
+        int: if even cast to True, if odd cast to False.
+        float: if negative, convert to equivalent positive value, if 
+        non-negative, change it into int by cutting off everything after 
+        the decimal.
+        list: use its length as a value for a corresponding dictionary list.
+        Anything else: key is 'garbage', and use unchanged arguments as values
+        for a corresponding dictionary list.
+
+    Args:
+        *args: A variable-length argument list containing elements of various
+        types.
+
+    Returns:
+        dict: A dictionary where keys are data types and values are 
+        lists of transformed items done according to the rules
 
     >>> randomize(1, 2.3, False, 'DSC20')
     {'int': [False], 'float': [2], 'garbage': [False], 'str': ['DC0']}
@@ -28,7 +46,48 @@ def randomize(*args):
 
     # Add AT LEAST 3 doctests below, DO NOT delete this line
     """
-    # YOUR CODE GOES HERE # 
+    result = {}
+
+    def helper(inputs):
+        # base case -- if no input, return the result
+        if not inputs:
+            return result
+        else:
+            # initialize first_arg variable
+            first_arg = inputs[0]
+            # handle each type
+            # ADD A CHECK FOR BOOLS AS THEY ARE CONSIDERED INTS
+            if isinstance(first_arg, bool):
+                key = "garbage"
+                val = first_arg
+            elif isinstance(first_arg, int):
+                key = "int"
+                val = first_arg % 2 == 0
+            elif isinstance(first_arg, float):
+                key = "float"
+                val = abs(first_arg) if first_arg < 0 else int(first_arg)
+            elif isinstance(first_arg, str):
+                key = "str"
+                val = "".join(first_arg[i] for i in range(0, len(first_arg), 2))
+            elif isinstance(first_arg, list):
+                key = "list"
+                val = len(first_arg)
+            else:
+                key = "garbage"
+                val = first_arg
+
+            # add current arg to result
+            if key in result:
+                result[key].append(val)
+            else:
+                result[key] = [val]
+
+            # apply recursion
+            helper(inputs[1:])
+
+    # call recursive function
+    helper(args)
+    return result
 
 #Question 2
 def rearrange_args(*args, **kwargs):
