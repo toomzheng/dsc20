@@ -1,7 +1,7 @@
 """
 DSC 20 Winter 2025 Lab 06
-Name: TODO
-PID: TODO
+Name: Tom Zheng
+PID: A18424137
 """
 
 # Question 1
@@ -18,8 +18,7 @@ def complexity_mc():
     >>> all([isinstance(ans, int) and 1 <= ans <= 10 for ans in answers])
     True
     """
-    # REPLACE ... WITH YOUR ANSWERS (1-10, duplicates allowed) #
-    return [...]
+    return [6, 1, 5, 6, 4, 6, 1, 3, 6, 6]
 
 # Question 2.1
 def number_of_adults_1(lst, age = 18):
@@ -41,9 +40,10 @@ def number_of_adults_1(lst, age = 18):
     >>> number_of_adults_1([1,2,3,4,5,6,7], age = 2)
     1
     """
-    # YOUR CODE GOES HERE #
-    return
-
+    # lambda helper function -- add 2 to simulate ceiling division
+    f = lambda children: (len(children) + 2) // 3
+    # list comprehension to filter out the children with appropriate age
+    return f([child for child in lst if child < age])
 # Question 2.2
 def number_of_adults_2(*args):
     """
@@ -65,8 +65,9 @@ def number_of_adults_2(*args):
     >>> number_of_adults_2(19, 20)
     0
     """
-    # YOUR CODE GOES HERE #
-    return
+    f = lambda children: (len(children) + 2) // 3
+    # using helper function from earlier
+    return f([child for child in args if child < 18])
 
 # Question 2.3
 def number_of_adults_3(*args, age = 18):
@@ -90,8 +91,8 @@ def number_of_adults_3(*args, age = 18):
     >>> number_of_adults_3(1,2,3,4,5,6,7, age = 2)
     1
     """
-    # YOUR CODE GOES HERE #
-    return
+    f = lambda children: (len(children) + 2) // 3
+    return f([child for child in args if child < age])
 
 # Question 3
 def activities_of_children(activity, **kwargs):
@@ -129,9 +130,8 @@ def activities_of_children(activity, **kwargs):
     >>> activities_of_children("basketball")
     []
     """
-    # YOUR CODE GOES HERE #
-    return
-
+    return [(name, True) if activity in kwargs[name] else (name, False) \
+            for name in kwargs]
 
 # Question 4
 def files_target_count(target, *args):
@@ -161,8 +161,13 @@ def files_target_count(target, *args):
      'files/file3.txt')
     26
     """
-    # YOUR CODE GOES HERE #
-    return
+    count = 0
+    for file in args:
+        with open(file, 'r') as f:
+            for char in f.read():
+                if char.lower() == target.lower():
+                    count += 1
+    return count
 
 # Question 5
 def field_trip(age_limit, **kwargs):
@@ -193,5 +198,12 @@ def field_trip(age_limit, **kwargs):
     group3 = [3, 1, 7, 88])
     {'group1': 1, 'group2': 2, 'group3': 2}
     """
-    # YOUR CODE GOES HERE #
-    return
+    # begin empty dict
+    result = {}
+    for group_id in kwargs:
+        # set ages as list of ages for each group_id
+        ages = kwargs[group_id]
+        # upack ages and put into number_of_adults_3 function
+        # set age to the age-limit
+        result[group_id] = number_of_adults_3(*ages, age=age_limit)
+    return result

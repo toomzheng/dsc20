@@ -26,5 +26,7 @@ def field_trip(age_limit, **kwargs):
     group3 = [3, 1, 7, 88])
     {'group1': 1, 'group2': 2, 'group3': 2}
     """
-    number_of_adults_3(*args, age = 18)
+    from lab06 import number_of_adults_3
+    for group in kwargs:
+        ()
     return
