@@ -1,7 +1,7 @@
 """
 DSC 20 Winter 2025 Homework 07
-Name: TODO
-PID: TODO
+Name: Tom
+PID: A18424137
 Source: TODO
 """
 
@@ -22,9 +22,28 @@ def type_with_number(message):
 
     # Add at least 3 doctests below here #
     """
-    # YOUR CODE GOES HERE #
-    return
-        
+    if len(message) == 0:
+        return ''
+    if message[0].lower() in ',.?!':
+        return '1' + type_with_number(message[1:])
+    elif message[0].lower() in 'abc':
+        return '2' + type_with_number(message[1:])
+    elif message[0].lower() in 'def':
+        return '3' + type_with_number(message[1:])
+    elif message[0].lower() in 'ghi':
+        return '4' + type_with_number(message[1:])
+    elif message[0].lower() in 'jkl':
+        return '5' + type_with_number(message[1:])
+    elif message[0].lower() in 'mno':
+        return '6' + type_with_number(message[1:])
+    elif message[0].lower() in 'pqrs':
+        return '7' + type_with_number(message[1:])
+    elif message[0].lower() in 'tuv':
+        return '8' + type_with_number(message[1:])
+    elif message[0].lower() in 'wxyz':
+        return '9' + type_with_number(message[1:])
+    else:
+        return '0' + type_with_number(message[1:])
 
 # Question 2
 def make_palindrome(start, stop):
@@ -43,9 +62,12 @@ def make_palindrome(start, stop):
 
     # Add at least 3 doctests below here #
     """
-    # YOUR CODE GOES HERE #
-    return
-
+    if start == stop:
+        return str(stop)
+    
+    if start > stop:
+        return str(start) + make_palindrome(start-1, stop) + str(start)
+    return str(start) + make_palindrome(start+1, stop) + str(start)
 
 # Question 3
 def doctests_q3():
@@ -85,11 +107,49 @@ class Phone:
     """
     Implementation of Phone
     """
-    # YOUR CODE GOES HERE #
-    pass
+    def __init__(self, brand, charge, storage):
+        self.brand = brand
+        self.max_charge = charge
+        self.storage = storage
+        self.charge = charge // 2
+        
+        # set drain rate based on brand
+        if brand == 'Apple':
+            self.drain_rate = 10
+        elif brand == 'OnePlus':
+            self.drain_rate = 12
+        elif brand == 'Samsung':
+            self.drain_rate = 8
+        else:
+            self.drain_rate = 15
+            
+        self.charge_rate = 20
+        self.num_apps = 0
+        self.apps = set()
 
+    def use(self, minutes):
+        drain = minutes * self.drain_rate
+        if drain >= self.charge:
+            self.charge = 0
+            return 'Out of charge'  
+        self.charge -= drain
 
-################ CLASS PART ##################
+    def recharge(self, minutes):
+        charge_amount = minutes * self.charge_rate
+        self.charge = min(self.max_charge, self.charge + charge_amount)
+
+    def install(self, app_size, app_name):
+        if self.charge == 0:
+            return 'Out of charge'
+        if app_size > self.storage:
+            return 'Not enough storage'
+        if app_name in self.apps:
+            return 'App already installed'
+            
+        self.storage -= app_size
+        self.apps.add(app_name)
+        self.num_apps += 1
+        return 'App installed'
 
 # Question 4
 

@@ -1,93 +1,176 @@
-# Question 1
-def randomize(*args):
-    """ 
-    Organizes a series of arguments into a dictionary with keys being the type
-    of the argument and values determined by specific transformation rules
-    to each type. 
-
-    If the type is a:
-        string: keep the characters at the even indices of the string, 
-        i.e. (0th, 2nd, 4th, 6th index and so on…)
-        int: if even cast to True, if odd cast to False.
-        float: if negative, convert to equivalent positive value, if 
-        non-negative, change it into int by cutting off everything after 
-        the decimal.
-        list: use its length as a value for a corresponding dictionary list.
-        Anything else: key is 'garbage', and use unchanged arguments as values
-        for a corresponding dictionary list.
-
-    Args:
-        *args: A variable-length argument list containing elements of various
-        types.
-
-    Returns:
-        dict: A dictionary where keys are data types and values are 
-        lists of transformed items done according to the rules
-
-    >>> randomize(1, 2.3, False, 'DSC20')
-    {'int': [False], 'float': [2], 'garbage': [False], 'str': ['DC0']}
-    >>> randomize(True, 4, 'ABC', -9.8, [1,2,3], 'a', False)
-    {'garbage': [True, False], 'int': [True], 'str': ['AC', 'a']\
-, 'float': [9.8], 'list': [3]}
-    >>> randomize(False, True, 'DS', True, 'abc', -3.2, 5, {'a': 1}, -2, ' .')
-    {'garbage': [False, True, True, {'a': 1}], 'str': ['D', 'ac', ' ']\
-, 'float': [3.2], 'int': [False, True]}
-    >>> randomize()
-    {}
-    >>> randomize(True)
-    {'garbage': [True]}
-
-    # Add AT LEAST 3 doctests below, DO NOT delete this line
-
-    >>> randomize(0, -10, '', 3.14159, [0])
-    {'int': [True, True], 'str': [''], 'float': [3], 'list': [1]}
-
-    >>> randomize({'key': 'value'}, [1, 2], 'longstring', 17.89, -4)
-    {'garbage': [{'key': 'value'}], 'list': [2], 'str': ['lnsrn'], \
-'float': [17], 'int': [True]}
-
-    >>> randomize(" ", 42, None, -3.14, [1, 2, 3, 4])
-    {'str': [' '], 'int': [True], 'garbage': [None], 'float': [3.14], \
-'list': [4]}
+def doctests_go_here():
     """
-    # base case -- if no input, return the result
-    if not args:
-        return {}
+    >>> track1 = Song('More Life', 3.11, 'Just Until...', 'Cordae', 1220980)
+    >>> print(track1)
+    'More Life' by Cordae on 'Just Until...' is 3.11 minutes long with 1220980 streams
+    >>> track1.get_artist()
+    'Cordae'
+    >>> Song.platform
+    'Spotify'
+    >>> track1.platform
+    'Spotify'
+    >>> play1 = Playlist('Rap Caviar', 'James')
+    >>> print(play1)
+    Playlist 'Rap Caviar' by James has 0 songs
+    >>> play1.add_song(track1)
+    True
+    >>> play1.get_total_streams()
+    1220980
+    >>> print(play1)
+    Playlist 'Rap Caviar' by James has 1 songs
+    >>> play1.add_song(track1)
+    False
+    >>> play1.remove_song(track1)
+    True
+    
+    >>> track2 = Song('Good Days', 4.65, 'Good Days', 'SZA', 276568815)
+    >>> track3 = Song('Heat Waves', 3.999, 'Dreamland', 'Glass Animals', 5000)
+    >>> play1.add_song(track2)
+    True
+    >>> play1.add_song(track1)
+    True
+    >>> play1.add_song(track3)
+    True
+    >>> track2.add_to_playlist(play1)
+    False
+    >>> play1.sort_songs('length')
+    >>> [x.get_name() for x in play1.get_songs()]
+    ['More Life', 'Heat Waves', 'Good Days']
+    >>> play1.sort_songs('name')
+    >>> [x.get_name() for x in play1.get_songs()]
+    ['Good Days', 'Heat Waves', 'More Life']
+    >>> play1.sort_songs('streams')
+    >>> [x.get_name() for x in play1.get_songs()]
+    ['Heat Waves', 'More Life', 'Good Days']
+    >>> play1.get_most_played_song()
+    'Good Days'
+    >>> play1.get_total_streams()
+    277794795
+    >>> play1.get_total_length()
+    11.759
+    >>> print(play1.play())
+    Listening to 'Heat Waves' by Glass Animals
+    Listening to 'More Life' by Cordae
+    Listening to 'Good Days' by SZA
+    >>> print(track1.listen())
+    Listening to 'More Life' by Cordae
+    >>> play1.get_total_streams()
+    277794799
+    >>> play2 = Playlist('Anti Pop', 'Spotify')
+    >>> play1.combine_playlists(play2)
+    True
+    >>> play2.combine_playlists(play1)
+    True
+    >>> print(play2)
+    Playlist 'Anti Pop' by Spotify has 3 songs
+    >>> play2.combine_playlists(play1)
+    3
+    >>> play2.remove_song(track2)
+    True
+    >>> play2.get_most_played_song()
+    'More Life'
+    >>> track2.add_to_playlist(play2)
+    True
+    >>> play2.get_most_played_song()
+    'Good Days'
+    >>> play3 = Playlist('test', 'ab')
+    >>> play3.get_most_played_song()
+    ''
+    >>> play3.get_total_streams()
+    0
+    >>> play3.get_total_length()
+    0
+    >>> play3.sort_songs('length')
+    >>> play3.songs
+    []
+    >>> play2.combine_playlists(play3)
+    True
 
-    else:
-        # initialize last_arg variable - we will be doing recursion beginning
-        # from the last element
-        last_arg = args[-1]
-        # handle each type
-        # ADD A CHECK FOR BOOLS AS THEY ARE CONSIDERED INTS
-        if isinstance(last_arg, bool):
-            key = "garbage"
-            val = last_arg
-        elif isinstance(last_arg, int):
-            key = "int"
-            val = last_arg % 2 == 0
-        elif isinstance(last_arg, float):
-            key = "float"
-            val = abs(last_arg) if last_arg < 0 else int(last_arg)
-        elif isinstance(last_arg, str):
-            key = "str"
-            val = "".join(last_arg[i] for i in range(0, len(last_arg), 2))
-        elif isinstance(last_arg, list):
-            key = "list"
-            val = len(last_arg)
-        else:
-            key = "garbage"
-            val = last_arg
+    >>> TS = Song('Shake it Off', 1.23, '1989', 'Taylor Swift', 12345)
+    >>> BC = Song('Halo', 2.34, 'I Am... Sasha Fierce', 'Beyoncé', 23456)
+    >>> JB = Song('Baby', 3.45, 'Okay', 'Justin Bieber', 34567)
+    >>> LG = Song('Bad Romance', 4.53, 'Talk You Back', 'Lady Gaga', 45678)
+    >>> AG = Song('Side to Side', 1.01, 'Dangerous Woman', 'Ariana Grande', 56432)
+    >>> SG = Song('BiggieBig', 3.22, 'The Album', 'Selena Gomez', 987)
+    >>> WG = Song('God is Fair', 32.43, 'GOD IS AROUND US', 'Windaco God', 99999999)
+    >>> BM = Song('Talking to the Moon', 3.38, 'Doo-Wops & Hooligans', 'Bruno Mars', 2814901)
+    >>> NB = Song('Long Song', 99999.99, 'Billy Boy', 'Nobody Billy', 7654321)
+    >>> Playlist1 = Playlist('God Spoken!', 'Yes sir')
+    >>> Playlist2 = Playlist('Do you still love me if I am DJ', 'Xiaozi')
+    >>> Playlist3 = Playlist('Best Song', 'Ye')
+    >>> lst = [TS,BC,JB,LG,AG,SG,WG,BM,NB]
 
-        # assign the recursion to a variable so we can use it in a dict later
-        # we are operating backwards on the entire recursion, so we remove
-        # from the end
-        rest_dict = randomize(*args[:-1])
+    """
+    return
 
-        # add current arg to result
-        if key in rest_dict:
-            # we add the rest_dict[key] value before as we are operating back
-            rest_dict[key] = rest_dict[key] + [val]
-        else:
-            rest_dict[key] = [val]
-        return rest_dict
+
+class Song:
+    """
+    Implementation of a song
+    """
+    platform = 'Spotify'
+
+    def __init__(self, name, length, album, artist, streams):
+        """
+        Constructor of Song
+        Parameters:
+        name (str): name of the song
+        length (float): song duration in minutes
+        album (str): name of album the song is in
+        artist (str): name of artist
+        streams (int): number of times the song has been streamed
+        """
+        assert isinstance(name, str) and name != "", "Name must be a non-empty string"
+        assert isinstance(length, (int, float)) and length > 0, "Length must be positive"
+        assert isinstance(album, str) and album != "", "Album must be a non-empty string"
+        assert isinstance(artist, str) and artist != "", "Artist must be a non-empty string"
+        assert isinstance(streams, int) and streams >= 0, "Streams must be non-negative"
+        
+        self.name = name
+        self.length = length
+        self.album = album
+        self.artist = artist
+        self.streams = streams
+
+    def get_name(self):
+        """ Getter for name attribute """
+        return self.name
+
+    def get_length(self):
+        """ Getter for length attribute """
+        return self.length
+
+    def get_album(self):
+        """ Getter for album attribute """
+        return self.album
+
+    def get_artist(self):
+        """ Getter for artist attribute """
+        return self.artist
+
+    def get_streams(self):
+        """ Getter for streams attribute """
+        return self.streams
+
+    def __str__(self):
+        """
+        String representation of Song
+        """
+        return f"'{self.get_name()}' by {self.get_artist()} on '{self.get_album()}' is {self.get_length()} minutes long with {self.get_streams()} streams"
+
+    def listen(self):
+        """
+        Listens to the song, increasing the stream counter.
+        Returns a string with the song name and artist
+        """
+        self.streams += 1
+        return f"Listening to '{self.get_name()}' by {self.get_artist()}"
+
+    def add_to_playlist(self, playlist):
+        """
+        Takes a Playlist object and adds the current Song instance into it.
+        return True if successful
+        return False if song is already included in playlist
+        """
+        assert isinstance(playlist, Playlist), "Parameter must be a Playlist instance"
+        return playlist.add_song(self)
