@@ -1,8 +1,8 @@
 """
 DSC 20 Winter 2025, Lab 07
-Name: TODO
-PID: TODO
-Source: TODO
+Name: Tom Zheng
+PID: A18424137
+Source: n/a
 """
 
 # Question 1
@@ -22,9 +22,22 @@ def max_recursion(tup):
     >>> max_recursion((13,2,33,4))
     33
     """
-    # YOUR CODE GOES HERE #
-    return
+    # base case if the tuple is empty
+    if len(tup) == 1:
+        return tup[0]
+    # find the max of the rest of the tuple
+    max = max_recursion(tup[1:])
 
+    # compare the first element with the max of the rest and return the largest
+    return tup[0] if tup[0] > max else max
+
+"""
+1, 2, 3, 4 would go in
+it would recurse until 0 is returned
+then it goes to 4 which is bigger than 0 so 4 is returned
+then it goest to 3 which is less than 4 so 4 is returned
+and so on
+"""
 
 
 # Question 2
@@ -45,9 +58,17 @@ def max_or_min_recursion(tup, find_max = True):
     >>> max_or_min_recursion((13,2,33,-4), True)
     33
     """
-    # YOUR CODE GOES HERE #
-    return
+    # from question 1:
+    if len(tup) == 1:
+        return tup[0]
+    
+    max_or_min = max_or_min_recursion(tup[1:], find_max)
+    
 
+    if find_max:
+        return tup[0] if tup[0] > max_or_min else max_or_min
+    
+    return tup[0] if tup[0] < max_or_min else max_or_min
 
 
 # Question 3
@@ -70,9 +91,22 @@ def find_winner(record, find_max = True):
     >>> find_winner([('Panda', 10), ('Koala', 10), ('Hippo', 5)], find_max=True)
     'Panda'
     """
-    # YOUR CODE GOES HERE #
-    return
 
+    if len(record) == 1:
+        return record[0][0]
+
+    # current team and score
+    team, score = record[0]
+
+    # find rest of the candidates
+    rest = find_winner(record[1:], find_max)
+
+    # the next score
+    next_score = record[1][1]
+
+    if find_max:
+        return team if score >= next_score else rest
+    return team if score <= next_score else rest
 
 
 # Question 4
@@ -98,10 +132,21 @@ def from_list_to_dict(lst):
     >>> from_list_to_dict(lst)
     {}
     """
-    # YOUR CODE GOES HERE #
-    return
+    if not lst:
+        return {}
 
+    if len(lst) == 1:
+        return {lst[0][0]: lst[0][1]}
+    
+    # create a dictionary
+    init_dict = {lst[0][0]: lst[0][1]}
 
+    rest = from_list_to_dict(lst[1:])
+
+    # add each of the previously created dictionaries to init_dict
+    init_dict.update(rest)
+    
+    return init_dict
 
 # Question 5
 class Mascot:
@@ -134,23 +179,23 @@ class Mascot:
     >>> mascot2.nickname
     'The Tree'
     """
-    brings = *****
-    
+    # shared across all instances
+    brings = 'Luck'
    
  # Initializer (Constructor) / Instance Attributes
-    def *****(*****, color, nickname, event):
-        *****.***** = color
-        self.***** = nickname
-        *****.***** = *****
+    def __init__(self, color, nickname, event):
+        self.color = color
+        self.nickname = nickname
+        self.event = event
 
 
     def sing_song(self, song):
-        return *****
+        return f"{self.nickname} sings '{song}' at {self.event}"
 
 
-    def change_nickname (*****, new_name):
-        *****.***** = *****
-
+    def change_nickname (self, new_name):
+        # update the nickname
+        self.nickname = new_name
 
 
 # Question 6
@@ -166,3 +211,12 @@ class Game:
     'Sunday, November 17'
     """
 
+    mascot = 'King Triton'
+
+    @classmethod
+    def starts(cls):
+        return 'Saturday, November 2'
+    
+    @classmethod
+    def ends(cls):
+        return 'Sunday, November 17'

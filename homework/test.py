@@ -1,3 +1,5 @@
+# Question 4
+
 def doctests_go_here():
     """
     >>> track1 = Song('More Life', 3.11, 'Just Until...', 'Cordae', 1220980)
@@ -100,6 +102,80 @@ def doctests_go_here():
     >>> Playlist3 = Playlist('Best Song', 'Ye')
     >>> lst = [TS,BC,JB,LG,AG,SG,WG,BM,NB]
 
+    # Song
+    >>> song1 = Song('Bohemian Rhapsody', 5.55, 'A Night at the Opera', 'Queen', 1000000)
+    >>> song2 = Song('Stairway to Heaven', 8.02, 'Led Zeppelin IV', 'Led Zeppelin', 2000000)
+    >>> song3 = Song('Purple Rain', 8.41, 'Purple Rain', 'Prince', 3000000)
+    
+    # Playlist
+    >>> playlist1 = Playlist('Rock Classics', 'RockFan')
+    >>> playlist2 = Playlist('80s Hits', 'RetroLover')
+    >>> playlist3 = Playlist('All Time Greats', 'MusicBuff')
+
+    # add_song()
+    >>> playlist1.add_song(song1)
+    True
+    >>> playlist1.add_song(song1) 
+    False
+    >>> playlist1.add_song(song2)
+    True
+
+    # remove_song() 
+    >>> playlist1.remove_song(song1) 
+    True
+    >>> playlist1.remove_song(song1) 
+    False
+    >>> playlist1.remove_song(song3) 
+    False
+
+    # sort_songs() 
+    >>> playlist2.add_song(song1)
+    True
+    >>> playlist2.add_song(song2)
+    True
+    >>> playlist2.add_song(song3)
+    True
+    >>> playlist2.sort_songs('length')
+    >>> [song.get_name() for song in playlist2.get_songs()]
+    ['Bohemian Rhapsody', 'Stairway to Heaven', 'Purple Rain']
+    >>> playlist2.sort_songs('streams')
+    >>> [song.get_name() for song in playlist2.get_songs()]
+    ['Bohemian Rhapsody', 'Stairway to Heaven', 'Purple Rain']
+    >>> playlist2.sort_songs('name')
+    >>> [song.get_name() for song in playlist2.get_songs()]
+    ['Bohemian Rhapsody', 'Purple Rain', 'Stairway to Heaven']
+
+    # play() 
+    >>> print(playlist3.play()) 
+    Empty
+    >>> playlist3.add_song(song1)
+    True
+    >>> print(playlist3.play()) 
+    Listening to 'Bohemian Rhapsody' by Queen
+    >>> playlist3.add_song(song2)
+    True
+    >>> print(playlist3.play()) 
+    Listening to 'Bohemian Rhapsody' by Queen
+    Listening to 'Stairway to Heaven' by Led Zeppelin
+
+    # combine_playlists() 
+    >>> empty_playlist = Playlist('Empty', 'Nobody')
+    >>> playlist1.combine_playlists(empty_playlist) 
+    True
+    >>> playlist2.combine_playlists(playlist3) 
+    2
+    >>> playlist3.combine_playlists(playlist2) 
+    2
+
+    # get_most_played_song() 
+    >>> empty_playlist.get_most_played_song() 
+    ''
+    >>> playlist3.get_most_played_song() 
+    'Purple Rain'
+    >>> playlist3.add_song(song3)
+    False
+    >>> playlist3.get_most_played_song() 
+    'Purple Rain'
     """
     return
 
@@ -108,6 +184,7 @@ class Song:
     """
     Implementation of a song
     """
+
     platform = 'Spotify'
 
     def __init__(self, name, length, album, artist, streams):
@@ -120,43 +197,52 @@ class Song:
         artist (str): name of artist
         streams (int): number of times the song has been streamed
         """
-        assert isinstance(name, str) and name != "", "Name must be a non-empty string"
-        assert isinstance(length, (int, float)) and length > 0, "Length must be positive"
-        assert isinstance(album, str) and album != "", "Album must be a non-empty string"
-        assert isinstance(artist, str) and artist != "", "Artist must be a non-empty string"
-        assert isinstance(streams, int) and streams >= 0, "Streams must be non-negative"
-        
+        assert isinstance(name, str) and name
         self.name = name
+
+        assert isinstance(length, float) and length > 0
         self.length = length
+
+        assert isinstance(album, str) and album
         self.album = album
+
+        assert isinstance(artist, str) and artist
         self.artist = artist
+
+        assert isinstance(streams, int) and streams > 0
         self.streams = streams
+
 
     def get_name(self):
         """ Getter for name attribute """
         return self.name
 
+
     def get_length(self):
         """ Getter for length attribute """
         return self.length
+
 
     def get_album(self):
         """ Getter for album attribute """
         return self.album
 
+
     def get_artist(self):
         """ Getter for artist attribute """
         return self.artist
+
 
     def get_streams(self):
         """ Getter for streams attribute """
         return self.streams
 
+
     def __str__(self):
-        """
-        String representation of Song
-        """
-        return f"'{self.get_name()}' by {self.get_artist()} on '{self.get_album()}' is {self.get_length()} minutes long with {self.get_streams()} streams"
+        """String representation of Song"""
+        return f"'{self.name}' by {self.artist} on '{self.album}' \
+is {self.length} minutes long with {self.streams} streams"
+
 
     def listen(self):
         """
@@ -164,7 +250,8 @@ class Song:
         Returns a string with the song name and artist
         """
         self.streams += 1
-        return f"Listening to '{self.get_name()}' by {self.get_artist()}"
+        return f"Listening to '{self.name}' by {self.artist}"
+
 
     def add_to_playlist(self, playlist):
         """
@@ -172,5 +259,129 @@ class Song:
         return True if successful
         return False if song is already included in playlist
         """
-        assert isinstance(playlist, Playlist), "Parameter must be a Playlist instance"
-        return playlist.add_song(self)
+        assert isinstance(playlist, Playlist)
+        for p in playlist.songs:
+            if p == self:
+                return False
+        
+        playlist.songs.append(self)
+        return True
+
+
+# Question 5
+
+class Playlist: 
+    """
+    Implementation of a playlist
+    """
+
+    def __init__(self, title, user):
+        """
+        Constructor of Playlist
+        Parameters:
+        title (str): title of the playlist
+        user (str): username of user who created playlist
+        Attributes:
+        songs (list): list used to store songs in playlist
+        """
+        assert isinstance(title, str) and title
+        self.title = title
+
+        assert isinstance(user, str) and user
+        self.user = user
+        self.songs = []
+
+
+    def get_title(self):
+        """ Getter for title attribute """
+        return self.title
+
+
+    def get_user(self):
+        """ Getter for user attribute """
+        return self.user
+    
+
+    def get_songs(self):
+        """ Getter for songs attribute """
+        return self.songs
+
+
+    def __str__(self):
+        """String representation of Playlist"""
+        return f"Playlist '{self.title}' by {self.user} \
+has {len(self.songs)} songs"
+
+
+    def add_song(self, song):
+        """
+        Adds song to list
+        return True if successful
+        return False if song is already included in playlist
+        """
+        assert isinstance(song, Song)
+        if song in self.songs:
+            return False
+        self.songs.append(song)
+        return True
+
+
+    def remove_song(self, song):
+        """
+        Removes a song from the list
+        return True if successful
+        return False if song is not in the playlist
+        """
+        assert isinstance(song, Song)
+        if song in self.songs:
+            self.songs.remove(song)
+            return True
+        return False
+        
+
+
+    def sort_songs(self, sort_by):
+        """
+        Sorts the songs by the sort_by attribute in ascending order
+        """
+        self.songs.sort(key=lambda song: getattr(song, sort_by))
+
+
+    def get_total_streams(self):
+        """Returns the total amount of streams of the songs in the playlist"""
+        return sum(song.get_streams() for song in self.songs)
+
+    def get_total_length(self):
+        """Returns the total length of the playlist"""
+        return sum(song.get_length() for song in self.songs)
+
+    def play(self):
+        """
+        Plays every song in the playlist.
+        Returns a string that records all the songs played.
+        If the playlist is empty, return "Empty"
+        """
+        if not self.songs:
+            return "Empty"
+        return "\n".join([song.listen() for song in self.songs])
+    
+
+    def combine_playlists(self, other_playlist):
+        """
+        Add all songs from other_playlist to current playlist.
+        If all songs were added successfully, return True. 
+        If not, return the number of songs that weren't added.
+        """
+        assert isinstance(other_playlist, Playlist)
+        failed_adds = sum(1 for song in other_playlist.get_songs() \
+                          if not self.add_song(song))
+        return True if failed_adds == 0 else failed_adds
+    
+
+    def get_most_played_song(self):
+        """
+        Return the name of the most played song
+        """
+        if not self.songs:
+            return ""
+        return max(self.songs, key=lambda x: x.get_streams()).get_name()

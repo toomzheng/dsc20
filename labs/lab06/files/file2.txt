@@ -6,3 +6,16 @@
 abcdefg
 hElLo
 BYE
+
+package main
+
+import "fmt"
+
+fmt.printLn string {
+    "hello world"
+}
+
+switch {
+
+}
+
