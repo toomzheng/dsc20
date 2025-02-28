@@ -1,8 +1,8 @@
 """
 DSC 20 Winter 2025 Lab 08
-Name: TODO
-PID:  TODO
-SOURCE:
+Name: Tom Zheng
+PID: A18424137
+SOURCE: TODO
 """
 
 # Question 1
