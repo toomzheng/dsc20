@@ -304,46 +304,53 @@ class ImageProcessingTemplate:
 
         return RGBImage(grayscale_pixels)
 
-#     def rotate_180(self, image):
-#         """
-#         Returns a rotated version of the given image
+    def rotate_180(self, image):
+        """
+        Returns a rotated version of the given image
 
-#         # See negate for info on this test
-#         # You can view the output in the img/out/ directory
-#         >>> img_proc = ImageProcessingTemplate()
-#         >>> img = img_read_helper('img/test_image_32x32.png')
-#         >>> img_exp = img_read_helper('img/exp/test_image_32x32_rotate.png')
-#         >>> img_rotate = img_proc.rotate_180(img)
-#         >>> img_rotate.pixels == img_exp.pixels # Check rotate_180 output
-#         True
-#         >>> img_save_helper('img/out/test_image_32x32_rotate.png', img_rotate)
-#         """
-#         # YOUR CODE GOES HERE #
+        # See negate for info on this test
+        # You can view the output in the img/out/ directory
+        >>> img_proc = ImageProcessingTemplate()
+        >>> img = img_read_helper('img/test_image_32x32.png')
+        >>> img_exp = img_read_helper('img/exp/test_image_32x32_rotate.png')
+        >>> img_rotate = img_proc.rotate_180(img)
+        >>> img_rotate.pixels == img_exp.pixels # Check rotate_180 output
+        True
+        >>> img_save_helper('img/out/test_image_32x32_rotate.png', img_rotate)
+        """
+        rotated_pixels = [row[::-1] for row in image.get_pixels()[::-1]]
+        return RGBImage(rotated_pixels)
 
-#     def get_average_brightness(self, image):
-#         """
-#         Returns the average brightness for the given image
+    def get_average_brightness(self, image):
+        """
+        Returns the average brightness for the given image
 
-#         >>> img_proc = ImageProcessingTemplate()
-#         >>> img = img_read_helper('img/test_image_32x32.png')
-#         >>> img_proc.get_average_brightness(img)
-#         86
-#         """
-#         # YOUR CODE GOES HERE #
+        >>> img_proc = ImageProcessingTemplate()
+        >>> img = img_read_helper('img/test_image_32x32.png')
+        >>> img_proc.get_average_brightness(img)
+        86
+        """
+        total_pixels = image.num_rows * image.num_cols
+        average_brightness = sum(sum(pixel)//3 for row in image.get_pixels() for pixel in row)//total_pixels
+        return average_brightness
 
-#     def adjust_brightness(self, image, intensity):
-#         """
-#         Returns a new image with adjusted brightness level
+    def adjust_brightness(self, image, intensity):
+        """
+        Returns a new image with adjusted brightness level
 
-#         >>> img_proc = ImageProcessingTemplate()
-#         >>> img = img_read_helper('img/test_image_32x32.png')
-#         >>> img_exp = img_read_helper('img/exp/test_image_32x32_adjusted.png')
-#         >>> img_adjust = img_proc.adjust_brightness(img, 1.2)
-#         >>> img_adjust.pixels == img_exp.pixels # Check adjust_brightness
-#         True
-#         >>> img_save_helper('img/out/test_image_32x32_adjusted.png', img_adjust)
-#         """
-#         # YOUR CODE GOES HERE #
+        >>> img_proc = ImageProcessingTemplate()
+        >>> img = img_read_helper('img/test_image_32x32.png')
+        >>> img_exp = img_read_helper('img/exp/test_image_32x32_adjusted.png')
+        >>> img_adjust = img_proc.adjust_brightness(img, 1.2)
+        >>> img_adjust.pixels == img_exp.pixels # Check adjust_brightness
+        True
+        >>> img_save_helper('img/out/test_image_32x32_adjusted.png', img_adjust)
+        """
+        if not isinstance(intensity, float) or intensity < 0:
+            raise TypeError()
+        # Ensure that the pixel doesn't go out of range and that the intensity multiplied with pixel value turns into an integer
+        adjusted_pixels = [[[min(255, int(x * intensity)) for x in val] for val in row] for row in image.get_pixels()]
+        return RGBImage(adjusted_pixels)
 
 
 # # Part 3: Standard Image Processing Methods #
