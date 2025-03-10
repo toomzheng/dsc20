@@ -2,7 +2,7 @@
 DSC 20 Winter 2025 Lab 08
 Name: Tom Zheng
 PID: A18424137
-SOURCE: TODO
+SOURCE: N/A
 """
 
 # Question 1
@@ -54,7 +54,7 @@ class Main_Store:
         """
         Applies tax_amount to the stores's tax_amount.
         """
-        self.total -= (tax_amount / 10) * self.total
+        self.total = (1 - tax_amount / 100) * self.total
 
     def reduce_stock(self, quantity):
         """
@@ -67,7 +67,7 @@ class Main_Store:
         """
         Increases the stock of the item by the given quantity.
         """
-        self.stock -= quantity
+        self.stock += quantity
 
     def send_stock_to_local(self, local_branch, amount):
         """
@@ -91,7 +91,7 @@ class Branch(Main_Store):
             enchantment level.
         """
         basic_info = super().display_address()
-        return f"{basic_info}, GPS location: {gps_location}"
+        return f"{basic_info}, GPS location: {self.gps_location}" 
 
 
     def change_gps_location(self, new_gps):
@@ -107,12 +107,12 @@ class Branch(Main_Store):
         full bonus. If bonus is greater than or equal to 500, apply \
         a quarter of the bonus. Otherwise, apply half the bonus.
         """
-        if bonus_amount <= 100:
-            self.total = self.total + bonus_amount
+        if bonus_amount < 100:
+            self.total += bonus_amount
         elif bonus_amount >= 500:
-            self.total = self.total + (bonus_amount * 0.2)
+            self.total += (bonus_amount * 0.25)
         else:
-            self.total = self.total + (bonus_amount * 0.5)
+            self.total += (bonus_amount * 0.5)
 
 
 # Question 2
@@ -157,31 +157,48 @@ def q2_doctests():
 class Hobbit:
     
     def __init__(self, age, coins, pipeweed, courage):
-        # YOUR CODE STARTS HERE #
-        return
+        self.age = age
+        self.coins = coins
+        self.pipeweed = pipeweed
+        self.courage = courage
 
     def barter(self, other_hobbit, item_value):
-        # YOUR CODE STARTS HERE #
-        return
+        if self.coins >= item_value:
+            self.coins -= item_value
+            other_hobbit.coins += item_value
+            return True
+        elif self.pipeweed * 10 >= item_value:
+            needed_pipeweed = (item_value + 9) // 10  # Round up division
+            self.pipeweed -= needed_pipeweed
+            other_hobbit.pipeweed += needed_pipeweed
+            return True
+        return False
 
     def go_on_adventure(self, needed_courage):
-        # YOUR CODE STARTS HERE #
-        return
+        if self.courage >= needed_courage:
+            self.courage -= needed_courage
+            return True
+        return False
 
     def payment_after_adventure(self, revenue, needed_courage, gained_courage):
-        # YOUR CODE STARTS HERE #
-        return
+        if self.go_on_adventure(needed_courage):
+            self.coins += revenue
+            self.courage += gained_courage
+            return True
+        return False
 
     def hobbit_level(self):
-        # YOUR CODE STARTS HERE #
-        return
+        level = ((self.courage) // 5) + 1
+        return f'Your hobbit is at level {level}'
 
 class Common_Hobbit(Hobbit):
     def barter(self, other_hobbit, item_value):
-        # YOUR CODE STARTS HERE #
-        return
+        if isinstance(other_hobbit, GrandPa_Hobbit):
+            self.coins = 0
+            return 'GrandPa_Hobbit wins again!'
+        return super().barter(other_hobbit, item_value)
 
 class GrandPa_Hobbit(Hobbit):
     def hobbit_level(self):
-        # YOUR CODE STARTS HERE #
-        return
+        level = ((self.courage + self.age) // 5) + 1
+        return f'Your hobbit is at level {level}' 
